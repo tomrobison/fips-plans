@@ -1,0 +1,45 @@
+# debug = [FACILITY.]LEVEL
+# debugging level
+#
+# Level is one of the syslog level names or numbers emerg (0), alert (1), crit
+# (2), err (3), warning (4), notice (5), info (6), or debug (7). All logs for
+# the specified level and all levels numerically less than it will be shown.
+# Use debug = debug or debug = 7 for greatest debugging output. The default is
+# notice (5).
+# Case is ignored for both facilities and levels.
+debug = "info"
+
+# Service Definitions
+#
+# Service definitions is defined as a literal string, so everything in between
+# '''s will be put into your configuration file.
+#
+# Lines starting with ; are comments and will be ignored.
+#
+# See https://www.stunnel.org/static/stunnel.html#SERVICE-LEVEL-OPTIONS
+service_definitions = '''
+; Example service definition
+; [gmail-pop]
+; client = yes
+; accept = "127.0.0.1:110"
+; connect = "pop.gmail.com:995"
+; verifyChain = yes
+; CApath = "/etc/ssl/certs"
+; checkHost = "pop.gmail.com"
+; OCSPaia = yes
+
+; stunnel refuses to start without something defined, so this example is active
+; by default.
+[example]
+accept = 9999
+connect = 8888
+'''
+
+# Configuration options for certificate
+[cert]
+
+path = "/hab/svc/stunnel/data/stunnel.pem"
+key_path = "/hab/svc/stunnel/data/stunnel.pem"
+days = 1095
+key_size = 2048
+subject = "/C=US/ST=Washington/L=Seattle/O=Example Company"
