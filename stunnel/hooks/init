@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export RANDFILE="{{pkg.svc_data_path}}/.rnd"
+touch "$RANDFILE"
+cert_file="{{cfg.cert.path}}"
+if [ ! -f "$cert_file" ]; then
+  openssl req -new -x509 -days "{{cfg.cert.days}}" -nodes -out "$cert_file" \
+    -keyout "$cert_file" -subj "{{cfg.cert.subject}}"
+  openssl gendh "{{cfg.cert.key_size}}" >> "$cert_file"
+  chmod 600 "$cert_file"
+fi
